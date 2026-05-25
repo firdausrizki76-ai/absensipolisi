@@ -10,6 +10,8 @@ export default function RekapAbsensiPage() {
   const [dailyData, setDailyData] = useState<any[]>([]);
   const [monthlyData, setMonthlyData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedPhoto, setSelectedPhoto] = useState<{ url: string, name: string } | null>(null);
+  const [selectedMap, setSelectedMap] = useState<{ name: string, pangkat: string, lokasiNama: string, lat: number, lng: number } | null>(null);
 
   useEffect(() => {
     const role = localStorage.getItem("current_user_role");
@@ -49,7 +51,10 @@ export default function RekapAbsensiPage() {
             satker: p.satuan,
             checkIn: log?.check_in ? log.check_in.substring(0, 5) + " WITA" : "-",
             status: log?.status || "TIDAK HADIR",
-            foto: p.foto_url
+            foto: p.foto_url,
+            lokasiNama: log?.lokasi_nama || null,
+            lokasiLat: log?.lokasi_lat || null,
+            lokasiLng: log?.lokasi_lng || null
           };
         });
         setDailyData(daily);
@@ -165,6 +170,7 @@ export default function RekapAbsensiPage() {
                 <th className="p-4 font-label-caps text-[12px] text-on-surface-variant tracking-widest">NRP</th>
                 <th className="p-4 font-label-caps text-[12px] text-on-surface-variant tracking-widest">SATKER</th>
                 <th className="p-4 font-label-caps text-[12px] text-on-surface-variant tracking-widest">WAKTU ABSEN</th>
+                <th className="p-4 font-label-caps text-[12px] text-on-surface-variant tracking-widest">LOKASI ABSEN</th>
                 <th className="p-4 font-label-caps text-[12px] text-on-surface-variant tracking-widest">KEHADIRAN</th>
               </tr>
             </thead>
@@ -173,7 +179,11 @@ export default function RekapAbsensiPage() {
                 <tr key={index} className="border-b border-outline-variant hover:bg-surface-container-high transition-colors">
                   <td className="p-4">
                     {row.foto ? (
-                      <div className="w-10 h-10 rounded bg-surface border border-outline overflow-hidden">
+                      <div 
+                        onClick={() => setSelectedPhoto({ url: row.foto, name: row.name })}
+                        className="w-10 h-10 rounded bg-surface border border-outline overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                        title="Klik untuk memperbesar"
+                      >
                         <img src={row.foto} alt="Selfie" className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" />
                       </div>
                     ) : (
@@ -189,6 +199,32 @@ export default function RekapAbsensiPage() {
                   <td className="p-4 font-body-sm font-mono text-on-surface-variant">{row.id}</td>
                   <td className="p-4 font-body-sm">{row.satker}</td>
                   <td className="p-4 font-body-sm font-mono">{row.checkIn}</td>
+                  <td className="p-4">
+                    {row.lokasiNama ? (
+                      <div className="space-y-1 max-w-[220px]">
+                        <p className="font-body-sm font-semibold truncate text-on-surface" title={row.lokasiNama}>
+                          {row.lokasiNama}
+                        </p>
+                        {row.lokasiLat && row.lokasiLng && (
+                          <button
+                            onClick={() => setSelectedMap({ 
+                              name: row.name, 
+                              pangkat: row.pangkat,
+                              lokasiNama: row.lokasiNama, 
+                              lat: row.lokasiLat, 
+                              lng: row.lokasiLng 
+                            })}
+                            className="flex items-center gap-1 text-[10px] text-primary hover:underline font-mono"
+                          >
+                            <span className="material-symbols-outlined text-[12px] text-primary">location_on</span>
+                            {row.lokasiLat.toFixed(5)}, {row.lokasiLng.toFixed(5)}
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-on-surface-variant/40">-</span>
+                    )}
+                  </td>
                   <td className="p-4">
                     <span className={`px-2 py-1 text-[10px] font-bold tracking-widest border ${
                       row.status === 'HADIR' ? 'text-green-400 border-green-400/50 bg-green-400/10' :
@@ -243,6 +279,102 @@ export default function RekapAbsensiPage() {
             </tbody>
           </table>
         </section>
+      )}
+
+      {/* Photo Lightbox Modal */}
+      {selectedPhoto && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div 
+            className="relative max-w-3xl max-h-[85vh] flex flex-col items-center bg-surface-container-lowest border border-primary p-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute top-4 right-4 z-10">
+              <button 
+                onClick={() => setSelectedPhoto(null)}
+                className="w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors border border-outline-variant"
+              >
+                <span className="material-symbols-outlined font-bold text-sm">close</span>
+              </button>
+            </div>
+            <img 
+              src={selectedPhoto.url} 
+              alt={selectedPhoto.name} 
+              className="max-w-full max-h-[70vh] object-contain border border-outline-variant"
+            />
+            <div className="w-full text-center mt-3 py-2 bg-black border border-outline-variant">
+              <p className="font-label-caps text-primary text-[12px] font-bold tracking-widest uppercase">FOTO ABSEN: {selectedPhoto.name}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Map Modal */}
+      {selectedMap && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          onClick={() => setSelectedMap(null)}
+        >
+          <div 
+            className="bg-surface-container-lowest border border-primary w-full max-w-2xl shadow-2xl flex flex-col overflow-hidden animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-primary text-black p-4 flex justify-between items-center">
+              <span className="font-label-caps font-bold tracking-widest text-[12px] flex items-center gap-2">
+                <span className="material-symbols-outlined text-[20px]">map</span>
+                LOKASI ABSEN: {selectedMap.pangkat} {selectedMap.name}
+              </span>
+              <button 
+                onClick={() => setSelectedMap(null)}
+                className="material-symbols-outlined text-[20px] font-bold text-black hover:opacity-75"
+              >
+                close
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              <div className="relative w-full h-[350px] bg-black border border-outline-variant overflow-hidden">
+                <iframe 
+                  title="OSM Live Map"
+                  className="w-full h-full border-0 grayscale opacity-90 hover:opacity-100 transition-opacity" 
+                  src={`https://www.openstreetmap.org/export/embed.html?bbox=${selectedMap.lng - 0.002}%2C${selectedMap.lat - 0.002}%2C${selectedMap.lng + 0.002}%2C${selectedMap.lat + 0.002}&layer=mapnik&marker=${selectedMap.lat}%2C${selectedMap.lng}`}
+                ></iframe>
+                
+                <div className="absolute top-2 left-2 bg-black/80 border border-primary/30 p-2 text-[10px] text-primary font-mono z-10">
+                  LAT: {selectedMap.lat.toFixed(6)}°<br/>LNG: {selectedMap.lng.toFixed(6)}°
+                </div>
+              </div>
+
+              <div className="bg-black border border-outline p-4">
+                <span className="font-label-caps text-[10px] text-on-surface-variant block mb-1">ALAMAT / NAMA LOKASI</span>
+                <span className="font-body-sm text-primary flex items-center gap-1.5 leading-normal">
+                  <span className="material-symbols-outlined text-[16px] text-primary shrink-0">my_location</span>
+                  {selectedMap.lokasiNama}
+                </span>
+              </div>
+
+              <div className="flex gap-4 pt-2">
+                <button 
+                  onClick={() => setSelectedMap(null)}
+                  className="flex-1 py-2.5 border border-outline text-on-surface-variant font-label-caps tracking-widest text-[11px] hover:bg-surface-variant transition-colors rounded-sm"
+                >
+                  TUTUP
+                </button>
+                <a 
+                  href={`https://www.google.com/maps/search/?api=1&query=${selectedMap.lat},${selectedMap.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2.5 font-label-caps tracking-widest text-[11px] font-bold text-black gold-brushed hover:brightness-110 active:scale-95 transition-all rounded-sm flex items-center justify-center gap-2 text-center"
+                >
+                  <span className="material-symbols-outlined text-[16px]">open_in_new</span>
+                  BUKA DI GOOGLE MAPS
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -9,6 +9,7 @@ export default function AdminPersonelPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [personelList, setPersonelList] = useState<any[]>([]);
+  const [activePhotoModal, setActivePhotoModal] = useState<{ url: string, name: string } | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
@@ -313,7 +314,11 @@ export default function AdminPersonelPage() {
                 <tr key={index} className="border-b border-outline-variant hover:bg-surface-container-high transition-colors">
                   <td className="p-4">
                     {row.foto_url ? (
-                      <div className="w-10 h-10 rounded bg-surface border border-outline overflow-hidden">
+                      <div 
+                        onClick={() => setActivePhotoModal({ url: row.foto_url, name: row.nama })}
+                        className="w-10 h-10 rounded bg-surface border border-outline overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+                        title="Klik untuk memperbesar"
+                      >
                         <img src={row.foto_url} alt="Face" className="w-full h-full object-cover" />
                       </div>
                     ) : (
@@ -720,6 +725,36 @@ export default function AdminPersonelPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Photo Lightbox Modal */}
+      {activePhotoModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+          onClick={() => setActivePhotoModal(null)}
+        >
+          <div 
+            className="relative max-w-3xl max-h-[85vh] flex flex-col items-center bg-surface-container-lowest border border-primary p-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute top-4 right-4 z-10">
+              <button 
+                onClick={() => setActivePhotoModal(null)}
+                className="w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors border border-outline-variant"
+              >
+                <span className="material-symbols-outlined font-bold text-sm">close</span>
+              </button>
+            </div>
+            <img 
+              src={activePhotoModal.url} 
+              alt={activePhotoModal.name} 
+              className="max-w-full max-h-[70vh] object-contain border border-outline-variant"
+            />
+            <div className="w-full text-center mt-3 py-2 bg-black border border-outline-variant">
+              <p className="font-label-caps text-primary text-[12px] font-bold tracking-widest uppercase">{activePhotoModal.name}</p>
+            </div>
           </div>
         </div>
       )}
