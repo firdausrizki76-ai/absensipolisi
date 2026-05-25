@@ -233,9 +233,52 @@ export default function PresensiPage() {
     }
   };
 
+  const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const R = 6371e3; // Earth radius in meters
+    const phi1 = (lat1 * Math.PI) / 180;
+    const phi2 = (lat2 * Math.PI) / 180;
+    const deltaPhi = ((lat2 - lat1) * Math.PI) / 180;
+    const deltaLambda = ((lon2 - lon1) * Math.PI) / 180;
+
+    const a =
+      Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+      Math.cos(phi1) *
+        Math.cos(phi2) *
+        Math.sin(deltaLambda / 2) *
+        Math.sin(deltaLambda / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c; // in meters
+  };
+
   const handleConfirmCheckIn = async () => {
     if (!nrp) return;
     try {
+      // Fetch settings to check radius limits
+      const { data: settings, error: settingsError } = await supabase
+        .from("pengaturan")
+        .select("*")
+        .eq("id", "default")
+        .maybeSingle();
+
+      if (!settingsError && settings) {
+        const distance = getDistance(
+          coords.lat,
+          coords.lng,
+          settings.center_lat,
+          settings.center_lng
+        );
+
+        if (distance > settings.radius_maks) {
+          alert(
+            `Gagal melakukan absensi! Anda berada di luar radius lokasi absen.\nJarak Anda saat ini: ${Math.round(
+              distance
+            )} meter.\nJarak maksimum yang diijinkan: ${settings.radius_maks} meter.`
+          );
+          return;
+        }
+      }
+
       const todayStr = new Date().toISOString().split("T")[0];
       const nowTimeStr = new Date().toTimeString().split(" ")[0]; // HH:MM:SS
       const { error } = await supabase

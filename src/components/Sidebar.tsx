@@ -19,9 +19,9 @@ export default function Sidebar({ role, isOpen, setIsOpen }: SidebarProps) {
     { href: "/admin/pengaturan", icon: "settings", label: "Pengaturan" },
   ] : [
     { href: "/dashboard", icon: "dashboard", label: "Dashboard" },
-    { href: "/dashboard/presensi", icon: "location_on", label: "Attendance" },
-    { href: "/dashboard/history", icon: "history", label: "History" },
-    { href: "/dashboard/profile", icon: "person", label: "Profile" },
+    { href: "/dashboard/presensi", icon: "location_on", label: "Absensi" },
+    { href: "/dashboard/history", icon: "history", label: "Riwayat" },
+    { href: "/dashboard/profile", icon: "person", label: "Profil" },
   ];
 
   return (
@@ -70,8 +70,8 @@ export default function Sidebar({ role, isOpen, setIsOpen }: SidebarProps) {
                 onClick={() => setIsOpen(false)}
                 className={`px-4 py-3 flex items-center gap-4 transition-all duration-200 ease-in-out ${
                   isActive 
-                    ? 'text-primary bg-surface-container-high border-r-4 border-primary' 
-                    : 'text-on-surface-variant hover:bg-surface-variant hover:text-on-surface'
+                     ? 'text-primary bg-surface-container-high border-r-4 border-primary' 
+                     : 'text-on-surface-variant hover:bg-surface-variant hover:text-on-surface'
                 }`}
               >
                 <span className="material-symbols-outlined" style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>
@@ -86,7 +86,7 @@ export default function Sidebar({ role, isOpen, setIsOpen }: SidebarProps) {
         <div className="p-4 border-t border-outline-variant">
           <Link href="/" className="text-error px-4 py-3 flex items-center gap-4 hover:bg-surface-variant transition-all duration-200 ease-in-out">
             <span className="material-symbols-outlined">logout</span>
-            <span className="font-label-caps text-label-caps">Logout</span>
+            <span className="font-label-caps text-label-caps">Keluar</span>
           </Link>
         </div>
       </aside>

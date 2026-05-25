@@ -24,7 +24,7 @@ export default function TopAppBar({ onMenuClick }: TopAppBarProps) {
           <span className="material-symbols-outlined text-primary text-[20px]">search</span>
           <input 
             className="bg-transparent border-none text-body-sm focus:ring-0 text-on-surface placeholder-on-surface-variant/50 w-48 outline-none" 
-            placeholder="Search operations..." 
+            placeholder="Cari..." 
             type="text"
           />
         </div>

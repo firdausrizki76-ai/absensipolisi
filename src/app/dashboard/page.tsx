@@ -127,17 +127,12 @@ export default function DashboardPage() {
       {/* Welcome Hero */}
       <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 animate-slide-up">
         <div>
-          <p className="font-label-caps text-label-caps text-primary mb-1">COMMAND CENTER DASHBOARD</p>
-          <h2 className="font-display-lg text-[28px] md:text-[40px] font-bold text-on-surface">Welcome, {userName}</h2>
+          <p className="font-label-caps text-label-caps text-primary mb-1">DASHBOARD UTAMA ABSENSI</p>
+          <h2 className="font-display-lg text-[28px] md:text-[40px] font-bold text-on-surface">Selamat Datang, {userName}</h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">
-            System Status: <span className="text-primary font-bold">ALL SYSTEMS GREEN</span> • {timeStr} LOCAL
+            Status Sistem: <span className="text-primary font-bold">SEMUA SISTEM AKTIF</span> • {timeStr} LOKAL
           </p>
         </div>
-        
-        <button className="gold-brushed px-8 py-3 flex items-center gap-3 active:scale-95 transition-transform duration-150 rounded-sm w-full md:w-auto justify-center">
-          <span className="material-symbols-outlined text-black font-bold">flight_takeoff</span>
-          <span className="font-label-caps text-label-caps text-black font-bold tracking-widest">DEPLOY UNIT</span>
-        </button>
       </section>
 
       {/* Stats Grid */}
@@ -146,7 +141,7 @@ export default function DashboardPage() {
         <div className="bg-surface-container-lowest p-6 border border-outline-variant gold-border-subtle flex flex-col justify-between h-32 relative overflow-hidden">
           <div className="absolute top-0 left-0 h-full w-1 gold-brushed"></div>
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">ACTIVE UNITS</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">PERSONIL AKTIF</span>
             <span className="material-symbols-outlined text-primary">local_police</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-primary tracking-tight">{stats.activeUnits}</div>
@@ -155,7 +150,7 @@ export default function DashboardPage() {
         {/* Stat Card 2 */}
         <div className="bg-surface-container-lowest p-6 border border-outline-variant flex flex-col justify-between h-32">
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">LATE CHECK-INS TODAY</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">PRESENSI TERLAMBAT HARI INI</span>
             <span className="material-symbols-outlined text-error">warning</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-error tracking-tight">
@@ -166,7 +161,7 @@ export default function DashboardPage() {
         {/* Stat Card 3 */}
         <div className="bg-surface-container-lowest p-6 border border-outline-variant flex flex-col justify-between h-32">
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">CHECK-INS TODAY</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">PRESENSI HARI INI</span>
             <span className="material-symbols-outlined text-on-surface-variant">policy</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-on-surface tracking-tight">{stats.incidentsToday}</div>
@@ -175,7 +170,7 @@ export default function DashboardPage() {
         {/* Stat Card 4 */}
         <div className="bg-surface-container-lowest p-6 border border-outline-variant flex flex-col justify-between h-32">
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">SYSTEM HEALTH</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">KESEHATAN SISTEM</span>
             <span className="material-symbols-outlined text-tertiary">health_and_safety</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-tertiary tracking-tight">{stats.systemHealth}</div>
@@ -189,10 +184,10 @@ export default function DashboardPage() {
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-title-md text-[20px] font-bold text-on-surface flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">dynamic_feed</span>
-              Live Operations Feed
+              Aktivitas Operasional Langsung
             </h3>
             <button className="font-label-caps text-label-caps text-primary hover:underline transition-all hidden sm:block">
-              VIEW ALL LOGS
+              LIHAT SEMUA RIWAYAT
             </button>
           </div>
 
@@ -240,7 +235,7 @@ export default function DashboardPage() {
           <div className="bg-[#0D0D0D] border border-outline-variant p-6 flex-1 flex flex-col h-full">
             <h3 className="font-title-md text-[20px] font-bold text-on-surface mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">map</span>
-              Sector Deployment
+              Penempatan Sektor
             </h3>
             
             <div className="flex-1 min-h-[200px] bg-surface-container relative border border-outline-variant overflow-hidden group">
@@ -254,7 +249,7 @@ export default function DashboardPage() {
               <div className="absolute bottom-4 left-4">
                 <div className="bg-black/80 backdrop-blur-md px-3 py-1.5 border border-primary/30 flex items-center gap-2 rounded-sm">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                  <span className="font-label-caps text-[10px] text-primary">LIVE RADAR ACTIVE</span>
+                  <span className="font-label-caps text-[10px] text-primary">RADAR AKTIF</span>
                 </div>
               </div>
             </div>
@@ -292,13 +287,13 @@ export default function DashboardPage() {
           <span className="material-symbols-outlined">priority_high</span>
         </div>
         <div className="flex-1">
-          <p className="font-label-caps text-[12px] font-bold text-primary tracking-widest mb-1">COMMAND ALERT</p>
+          <p className="font-label-caps text-[12px] font-bold text-primary tracking-widest mb-1">PEMBERITAHUAN KOMANDO</p>
           <p className="font-body-lg text-body-lg text-on-surface">
-            Weekly accountability report for Division B is pending approval. Target deadline: 16:00 HRS.
+            Laporan pertanggungjawaban mingguan untuk Divisi B sedang menunggu persetujuan. Batas waktu target: 16:00 WITA.
           </p>
         </div>
         <button className="border border-primary px-6 py-2 font-label-caps text-[12px] font-bold tracking-widest text-primary hover:bg-primary hover:text-black transition-all rounded-sm">
-          TAKE ACTION
+          TINDAK LANJUTI
         </button>
       </section>
     </div>

@@ -120,16 +120,16 @@ export default function AdminDashboardPage() {
       {/* Welcome Hero */}
       <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <p className="font-label-caps text-label-caps text-primary mb-1">COMMAND CENTER DASHBOARD</p>
-          <h2 className="font-display-lg text-[28px] md:text-[40px] font-bold text-on-surface">Welcome, System Administrator</h2>
+          <p className="font-label-caps text-label-caps text-primary mb-1">DASHBOARD PUSAT KOMANDO</p>
+          <h2 className="font-display-lg text-[28px] md:text-[40px] font-bold text-on-surface">Selamat Datang, Administrator Sistem</h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">
-            System Status: <span className="text-primary font-bold">ALL SYSTEMS GREEN</span> • {new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+            Status Sistem: <span className="text-primary font-bold">SEMUA SISTEM AKTIF</span> • {new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
         </div>
         
         <button className="gold-brushed px-8 py-3 flex items-center gap-3 active:scale-95 transition-transform duration-150 rounded-sm w-full md:w-auto justify-center">
           <span className="material-symbols-outlined text-black font-bold">print</span>
-          <span className="font-label-caps text-label-caps text-black font-bold tracking-widest">GENERATE REPORT</span>
+          <span className="font-label-caps text-label-caps text-black font-bold tracking-widest">CETAK LAPORAN</span>
         </button>
       </section>
 
@@ -139,7 +139,7 @@ export default function AdminDashboardPage() {
         <div className="bg-surface-container-lowest p-6 border border-outline-variant gold-border-subtle flex flex-col justify-between h-32 relative overflow-hidden">
           <div className="absolute top-0 left-0 h-full w-1 gold-brushed"></div>
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">TOTAL REGISTERED PERSONNEL</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">TOTAL PERSONIL TERDAFTAR</span>
             <span className="material-symbols-outlined text-primary">badge</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-primary tracking-tight">{stats.totalRegistered}</div>
@@ -148,7 +148,7 @@ export default function AdminDashboardPage() {
         {/* Stat Card 2 */}
         <div className="bg-surface-container-lowest p-6 border border-outline-variant flex flex-col justify-between h-32">
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">ACTIVE ON DUTY</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">AKTIF BERTUGAS</span>
             <span className="material-symbols-outlined text-primary">shield</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-primary tracking-tight">{stats.activeOnDuty}</div>
@@ -157,7 +157,7 @@ export default function AdminDashboardPage() {
         {/* Stat Card 3 */}
         <div className="bg-surface-container-lowest p-6 border border-outline-variant flex flex-col justify-between h-32">
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">UNACCOUNTED</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">BELUM ABSEN</span>
             <span className="material-symbols-outlined text-error">warning</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-error tracking-tight">{stats.unaccounted}</div>
@@ -166,7 +166,7 @@ export default function AdminDashboardPage() {
         {/* Stat Card 4 */}
         <div className="bg-surface-container-lowest p-6 border border-outline-variant flex flex-col justify-between h-32">
           <div className="flex justify-between items-start">
-            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">SYSTEM ALERTS (LATE)</span>
+            <span className="font-label-caps text-[10px] md:text-label-caps text-on-surface-variant">PERINGATAN SISTEM (TERLAMBAT)</span>
             <span className="material-symbols-outlined text-tertiary">notifications_active</span>
           </div>
           <div className="font-display-lg text-[32px] md:text-[40px] font-bold text-tertiary tracking-tight">{stats.systemAlerts}</div>
@@ -180,10 +180,10 @@ export default function AdminDashboardPage() {
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-title-md text-[20px] font-bold text-on-surface flex items-center gap-2">
               <span className="material-symbols-outlined text-primary">admin_panel_settings</span>
-              System Logs & Overrides
+              Catatan Aktivitas Sistem
             </h3>
             <button className="font-label-caps text-label-caps text-primary hover:underline transition-all hidden sm:block">
-              VIEW FULL AUDIT
+              LIHAT AUDIT LENGKAP
             </button>
           </div>
 
