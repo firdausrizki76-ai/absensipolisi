@@ -390,16 +390,16 @@ export default function PresensiPage() {
                       <>
                         <div className="scan-line z-10"></div>
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                          <div className="w-28 h-28 border border-primary/50 rounded-full flex items-center justify-center animate-pulse">
-                            <span className="text-[9px] text-primary bg-black/80 px-2 py-0.5 font-sans rounded">MEMINDAI...</span>
+                          <div className="w-48 h-60 border border-primary/50 rounded-[50%] flex items-center justify-center animate-pulse">
+                            <span className="text-[10px] text-primary bg-black/80 px-2.5 py-1 font-sans rounded tracking-wider font-bold">MEMINDAI...</span>
                           </div>
                         </div>
                       </>
                     )}
                     {modalStep === "register_face" && (
                       <div className="absolute inset-0 border border-dashed border-primary/30 pointer-events-none flex items-center justify-center">
-                        <div className="w-24 h-24 border-2 border-dashed border-primary/50 rounded-full flex items-center justify-center animate-pulse">
-                          <span className="text-[9px] text-primary bg-black/80 px-1.5 py-0.5 font-sans rounded">Posisikan Wajah</span>
+                        <div className="w-44 h-56 border-2 border-dashed border-primary/50 rounded-[50%] flex items-center justify-center animate-pulse">
+                          <span className="text-[10px] text-primary bg-black/80 px-2 py-1 font-sans rounded tracking-wider font-bold">Posisikan Wajah</span>
                         </div>
                       </div>
                     )}
